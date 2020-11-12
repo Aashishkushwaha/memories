@@ -1,0 +1,1 @@
+export const BASE_URL = 'https://memories-mern-app.herokuapp.com/api';
