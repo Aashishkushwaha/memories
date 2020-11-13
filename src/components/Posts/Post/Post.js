@@ -13,6 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { deletePost, likePost } from "../../../redux/actions/post";
 import { useDispatch } from "react-redux";
+import { debounce } from "../../../utilFunctions";
 import useStyles from "./style";
 
 const Post = ({ post, setCurrentPostId }) => {
@@ -57,14 +58,16 @@ const Post = ({ post, setCurrentPostId }) => {
         </Typography>
         <CardContent className={classes.cardContent}>
           <Typography variant="h5">{post?.title}</Typography>
-          <Typography variant="body2" color="textSecondary" component="h5">{post?.message}</Typography>
+          <Typography variant="body2" color="textSecondary" component="h5">
+            {post?.message}
+          </Typography>
         </CardContent>
         <CardActions className={classes.cardActions}>
           <Button
             className={classes.button}
             size="small"
             color="primary"
-            onClick={() => likesClickHandler(post?._id, post)}
+            onClick={debounce(() => likesClickHandler(post?._id, post), 2000)}
           >
             <ThumbUpAltIcon fontSize="small" style={{ marginRight: "4px" }} />
             {`${post?.likeCount} `}
